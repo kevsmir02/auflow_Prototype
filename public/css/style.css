@@ -1,0 +1,128 @@
+/* GENERAL LAYOUT */
+body {
+    background-color: #f8f9fa;
+}
+
+main {
+    min-height: 100vh;
+}
+
+/* NAVIGATION */
+.navbar .nav-link {
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.navbar .nav-link.active {
+    color: #0d6efd; /* Bootstrap primary */
+}
+
+.navbar-brand {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* TOP METRIC CARDS */
+.metric-card {
+    background-color: #0056b3;
+    border-radius: 12px;
+    min-height: 140px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1.25rem;
+    color: white;
+}
+
+.metric-card .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+.metric-card p {
+    margin-bottom: 0.25rem;
+}
+
+/* RESPONSIVE TILE WIDTH FOR 8 TILES PER ROW */
+@media (min-width: 768px) {
+    .col-md-1-5 {
+        flex: 0 0 auto;
+        width: 12.5%; /* 100 / 8 = 12.5% for 8 tiles per row */
+    }
+}
+
+/* FORM TILE CARD STYLES */
+.tile-card {
+    height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    width: 100%;
+    transition: all 0.2s ease;
+}
+
+.tile-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.form-icon {
+    font-size: 1.6rem;
+    margin-bottom: 0.3rem;
+}
+
+.form-label {
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+.tile-card {
+    height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    width: 100%;
+
+    /* Hover effect */
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.tile-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Navbar active link underline style */
+.navbar .nav-link {
+    color: #333;
+    font-weight: 500;
+    position: relative;
+}
+
+.navbar .nav-link.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 2px;
+    width: 100%;
+    background-color: #0d6efd; /* Bootstrap primary */
+}
+
+.navbar .nav-link:hover {
+    color: #0d6efd;
+}
