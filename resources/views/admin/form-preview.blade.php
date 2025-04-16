@@ -9,7 +9,7 @@
         <div class="col-lg-7 offset-lg-2">
             <div class="bg-white p-4 shadow-sm rounded" style="max-width: 820px; margin: 0 auto;">
                 <div class="text-center mb-4">
-                    <img src="{{ asset('images/auflog.png') }}" alt="AUFlow Logo" style="height: 40px;">
+                    <img src="{{ asset('images/auflog.png') }}" alt="AUFlow Logo" style="height: 60px;">
                 </div>
 
                 <form>

@@ -21,7 +21,7 @@
             
             <!-- Left: Logo -->
             <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none" href="#">
-                <img src="{{ asset('images/auflog.png') }}" alt="AUFlow Logo" style="height: 32px;">
+                <img src="{{ asset('images/auflog.png') }}" alt="AUFlow Logo" style="height: 70px;">
             </a>
 
 
