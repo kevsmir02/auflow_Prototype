@@ -5,34 +5,47 @@
 @section('content')
 @php
     $role = session('role', 'user');
+
+    $metrics = [
+        ['count' => 1, 'label' => $role === 'admin' ? 'Needs Approval' : 'Uploaded Forms'],
+        ['count' => 2, 'label' => 'Submitted Forms'],
+        ['count' => 3, 'label' => 'Accepted Forms'],
+        ['count' => 4, 'label' => 'Reverted Forms'],
+    ];
+
+    $formTiles = [
+        ['label' => 'Request for Leave', 'icon' => 'bi-plus-circle', 'color' => '#E8A212'],
+        ['label' => 'Expense Reimbursement', 'icon' => 'bi-folder', 'color' => '#354CB7'],
+        ['label' => 'Travel Authorization', 'icon' => 'bi-box', 'color' => '#539C43'],
+        ['label' => 'Equipment Borrow Form', 'icon' => 'bi-upload', 'color' => '#87AE24'],
+        ['label' => 'IT Support Ticket', 'icon' => 'bi-download', 'color' => '#E15F04'],
+        ['label' => 'Facility Reservation', 'icon' => 'bi-arrow-repeat', 'color' => '#3C47A9'],
+        ['label' => 'Training Enrollment', 'icon' => 'bi-arrow-left-right', 'color' => '#E8A212'],
+        ['label' => 'Feedback Form', 'icon' => 'bi-lightbulb', 'color' => '#354CB7'],
+        ['label' => 'Incident Report', 'icon' => 'bi-bar-chart-line', 'color' => '#539C43'],
+        ['label' => 'Change Request', 'icon' => 'bi-graph-up', 'color' => '#87AE24'],
+        ['label' => 'Performance Review', 'icon' => 'bi-graph-down', 'color' => '#E15F04'],
+        ['label' => 'User Access Request', 'icon' => 'bi-journal-text', 'color' => '#3C47A9'],
+        ['label' => 'Project Proposal', 'icon' => 'bi-archive', 'color' => '#E8A212'],
+        ['label' => 'Document Submission', 'icon' => 'bi-file-earmark', 'color' => '#354CB7'],
+        ['label' => 'Approval Form', 'icon' => 'bi-pin', 'color' => '#539C43'],
+    ];
+
+    if ($role === 'admin') {
+        $formTiles[] = ['label' => 'New Form', 'icon' => 'bi-plus', 'color' => '#87AE24'];
+    }
 @endphp
 
 <div class="container mt-4">
 
-    <!-- Page Title + Search -->
+    <!-- Title + Search -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h4 class="fw-bold mb-0">{{ $role === 'admin' ? 'Admin' : 'User' }} Dashboard</h4>
+        <h4 class="fw-bold mb-0">{{ ucfirst($role) }} Dashboard</h4>
         <input type="text" class="form-control form-control-sm w-25" placeholder="Search forms..." aria-label="Search">
     </div>
 
-    <!-- Metric Summary Cards -->
+    <!-- Metric Cards -->
     <div class="row g-3 mb-5">
-        @php
-            $metrics = $role === 'admin'
-                ? [
-                    ['count' => 1, 'label' => 'Needs Approval'],
-                    ['count' => 2, 'label' => 'Submitted Forms'],
-                    ['count' => 3, 'label' => 'Accepted Forms'],
-                    ['count' => 4, 'label' => 'Reverted Forms'],
-                ]
-                : [
-                    ['count' => 1, 'label' => 'Uploaded Forms'],
-                    ['count' => 2, 'label' => 'Submitted Forms'],
-                    ['count' => 3, 'label' => 'Accepted Forms'],
-                    ['count' => 4, 'label' => 'Reverted Forms'],
-                ];
-        @endphp
-
         @foreach ($metrics as $metric)
             <div class="col-6 col-md-3">
                 <div class="card text-white shadow-sm h-100" style="background-color: #0054A5;">
@@ -49,56 +62,27 @@
         @endforeach
     </div>
 
-    <!-- Form Tiles Section -->
+    <!-- Form Tiles -->
     <h5 class="mb-3 fw-bold">Forms</h5>
-
-    @php
-        $formColors = [
-            '#E8A212', '#354CB7', '#539C43', '#87AE24',
-            '#E15F04', '#3C47A9', '#E8A212', '#354CB7',
-            '#539C43', '#87AE24', '#E15F04', '#3C47A9',
-            '#E8A212', '#354CB7', '#539C43', '#87AE24'
-        ];
-
-        $formIcons = [
-            'bi-plus-circle', 'bi-folder', 'bi-box', 'bi-upload',
-            'bi-download', 'bi-arrow-repeat', 'bi-arrow-left-right', 'bi-lightbulb',
-            'bi-bar-chart-line', 'bi-graph-up', 'bi-graph-down', 'bi-journal-text',
-            'bi-archive', 'bi-file-earmark', 'bi-pin', 'bi-plus'
-        ];
-
-        $formLabels = [
-            'Request for Leave', 'Expense Reimbursement', 'Travel Authorization',
-            'Equipment Borrow Form', 'IT Support Ticket', 'Facility Reservation',
-            'Training Enrollment', 'Feedback Form', 'Incident Report',
-            'Change Request', 'Performance Review', 'User Access Request',
-            'Project Proposal', 'Document Submission', 'Approval Form', 'New Form'
-        ];
-
-        $visibleForms = $role === 'admin' ? 16 : 15;
-    @endphp
-
     <div class="row g-3">
-        @for ($i = 0; $i < $visibleForms; $i++)
+        @foreach ($formTiles as $tile)
             <div class="col-6 col-md-1-5">
-                @php $isNew = $formLabels[$i] === 'New Form'; @endphp
-
                 <div class="tile-card shadow-sm d-flex flex-column align-items-center justify-content-center p-3 text-white rounded"
-                    style="background-color: {{ $formColors[$i % count($formColors)] }}; height: 110px;">
+                     style="background-color: {{ $tile['color'] }}; height: 110px;">
                     
-                    @if ($isNew && $role === 'admin')
+                    @if ($tile['label'] === 'New Form')
                         <a href="{{ route('admin.formbuilder') }}" class="stretched-link text-white text-decoration-none"></a>
                     @endif
 
                     <div class="form-icon mb-2" style="font-size: 1.5rem;">
-                        <i class="bi {{ $formIcons[$i] }}"></i>
+                        <i class="bi {{ $tile['icon'] }}"></i>
                     </div>
                     <div class="form-label small text-center fw-semibold">
-                        {{ $formLabels[$i] }}
+                        {{ $tile['label'] }}
                     </div>
                 </div>
             </div>
-        @endfor
+        @endforeach
     </div>
 </div>
 @endsection

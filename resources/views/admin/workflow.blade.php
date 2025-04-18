@@ -4,44 +4,72 @@
 
 @section('content')
 <div class="container-xl mt-4">
-    <!-- Page Header -->
+
+    {{-- Header Bar --}}
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h5 class="fw-bold mb-0">Workflow: Test Form</h5>
         <div class="d-flex align-items-center gap-2">
-            <a href="#" class="btn btn-outline-secondary btn-sm">Responses</a>
-            <a href="{{ route('admin.formbuilder') }}" class="btn btn-outline-secondary btn-sm">Form</a>
-            <a href="{{ route('admin.workflow') }}" class="btn {{ request()->routeIs('admin.workflow') ? 'btn-primary' : 'btn-outline-secondary' }} btn-sm">Workflow</a>
-            <a href="{{ route('form.publish') }}" class="btn {{ request()->routeIs('form.publish') ? 'btn-primary' : 'btn-outline-secondary' }} btn-sm">Publish</a>
+            @php
+                $navTabs = [
+                    ['label' => 'Responses', 'route' => '#', 'active' => false],
+                    ['label' => 'Form', 'route' => route('admin.formbuilder'), 'active' => false],
+                    ['label' => 'Workflow', 'route' => route('admin.workflow'), 'active' => request()->routeIs('admin.workflow')],
+                    ['label' => 'Publish', 'route' => route('form.publish'), 'active' => request()->routeIs('form.publish')],
+                ];
+            @endphp
+
+            @foreach ($navTabs as $tab)
+                <a href="{{ $tab['route'] }}"
+                   class="btn btn-sm {{ $tab['active'] ? 'btn-primary' : 'btn-outline-secondary' }}">
+                    {{ $tab['label'] }}
+                </a>
+            @endforeach
+
             <span class="text-muted small ms-2">
                 <i class="bi bi-gear me-1"></i> Workflow Settings
             </span>
         </div>
     </div>
 
-    <!-- Bounded Workflow Area -->
+    {{-- Workflow Builder Section --}}
     <div class="d-flex flex-wrap gap-3">
-        <!-- Sidebar -->
+
+        {{-- Left Sidebar: Step Types --}}
         <div class="bg-white shadow-sm rounded p-3 small" style="width: 180px;">
             <h6 class="fw-bold mb-3">Add Steps</h6>
+            @php
+                $stepTypes = [
+                    ['icon' => 'check2-circle', 'label' => 'Approval', 'color' => 'success'],
+                    ['icon' => 'list-task', 'label' => 'Task', 'color' => 'primary'],
+                    ['icon' => 'envelope-check', 'label' => 'Acknowledge', 'color' => 'info'],
+                    ['icon' => 'bell', 'label' => 'Notification', 'color' => 'warning'],
+                    ['icon' => 'diagram-3-fill', 'label' => 'Branch', 'color' => 'danger'],
+                    ['icon' => 'lightning-charge', 'label' => 'Integration', 'color' => 'danger'],
+                ];
+            @endphp
+
             <ul class="list-unstyled">
-                <li class="mb-2"><i class="bi bi-check2-circle text-success me-2"></i> Approval</li>
-                <li class="mb-2"><i class="bi bi-list-task text-primary me-2"></i> Task</li>
-                <li class="mb-2"><i class="bi bi-envelope-check text-info me-2"></i> Acknowledge</li>
-                <li class="mb-2"><i class="bi bi-bell text-warning me-2"></i> Notification</li>
-                <li class="mb-2"><i class="bi bi-diagram-3-fill text-danger me-2"></i> Branch</li>
-                <li class="mb-2"><i class="bi bi-lightning-charge text-danger me-2"></i> Integration</li>
+                @foreach ($stepTypes as $type)
+                    <li class="mb-2">
+                        <i class="bi bi-{{ $type['icon'] }} text-{{ $type['color'] }} me-2"></i>
+                        {{ $type['label'] }}
+                    </li>
+                @endforeach
             </ul>
         </div>
 
-        <!-- Workflow Canvas -->
+        {{-- Center Canvas --}}
         <div class="flex-fill bg-white shadow-sm rounded p-4" style="max-width: 960px;">
+
+            {{-- Workflow Steps --}}
             <div class="d-flex align-items-start flex-wrap gap-3 mb-4">
-                <!-- START -->
+
+                {{-- START --}}
                 <div class="d-flex align-items-center">
                     <span class="badge bg-secondary">START</span>
                 </div>
 
-                <!-- Workflow Steps -->
+                {{-- Step Cards --}}
                 @php
                     $steps = [
                         [
@@ -54,8 +82,7 @@
                             'label' => 'Approval',
                             'icon' => 'check2-circle',
                             'class' => 'success',
-                            'content' => '<i class="bi bi-person"></i> Don David<br>
-                                <span class="text-muted small">If denied: <span class="text-danger fw-semibold">stop</span></span>'
+                            'content' => '<i class="bi bi-person"></i> Don David<br><span class="text-muted small">If denied: <span class="text-danger fw-semibold">stop</span></span>'
                         ],
                         [
                             'label' => 'Task',
@@ -80,7 +107,7 @@
                             'icon' => 'lightning-charge',
                             'class' => 'danger',
                             'content' => 'Student Information System'
-                        ]
+                        ],
                     ];
                 @endphp
 
@@ -101,17 +128,22 @@
                     </div>
                 @endforeach
 
-                <!-- END -->
+                {{-- END --}}
                 <div class="d-flex align-items-center">
                     <span class="badge bg-secondary">END</span>
                 </div>
             </div>
 
-            <!-- Controls -->
+            {{-- Controls --}}
             <div class="d-flex gap-2">
-                <button class="btn btn-light btn-sm"><i class="bi bi-arrow-counterclockwise me-1"></i> Undo</button>
-                <button class="btn btn-light btn-sm"><i class="bi bi-arrow-clockwise me-1"></i> Redo</button>
+                <button class="btn btn-light btn-sm">
+                    <i class="bi bi-arrow-counterclockwise me-1"></i> Undo
+                </button>
+                <button class="btn btn-light btn-sm">
+                    <i class="bi bi-arrow-clockwise me-1"></i> Redo
+                </button>
             </div>
+
         </div>
     </div>
 </div>

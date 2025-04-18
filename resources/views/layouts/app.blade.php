@@ -7,9 +7,9 @@
 
     <!-- Bootstrap 5 + Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
+    <!-- Custom Styles -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body class="bg-light text-dark">
@@ -19,29 +19,29 @@
         <div class="container d-flex justify-content-between align-items-center py-2">
 
             <!-- Logo -->
-            <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none fw-bold text-primary" href="#">
+            <a href="#" class="navbar-brand d-flex align-items-center gap-2 text-primary fw-bold text-decoration-none">
                 <img src="{{ asset('images/auflog.png') }}" alt="AUFlow Logo" style="height: 56px;">
             </a>
 
-            <!-- Navigation -->
-
+            <!-- Navigation Links -->
             @php
-                $homeRoute = session('role') === 'admin' ? route('admin.dashboard') : route('user.dashboard');
+                $role = session('role');
+                $homeRoute = $role === 'admin' ? route('admin.dashboard') : route('user.dashboard');
             @endphp
-            <ul class="navbar-nav gap-3 flex-row mx-auto">
+
+            <ul class="navbar-nav flex-row gap-3 mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('*.dashboard') ? 'active' : '' }}" href="{{ $homeRoute }}">
+                    <a href="{{ $homeRoute }}" class="nav-link {{ request()->routeIs('*.dashboard') ? 'active' : '' }}">
                         Home
                     </a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('action.list') ? 'active fw-semibold' : '' }}" href="{{ route('action.list') }}">
-                    Action List
-                </a>
-
+                    <a href="{{ route('action.list') }}" class="nav-link {{ request()->routeIs('action.list') ? 'active fw-semibold' : '' }}">
+                        Action List
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('forms.my') ? 'active fw-semibold' : '' }}" href="{{ route('forms.my') }}">
+                    <a href="{{ route('forms.my') }}" class="nav-link {{ request()->routeIs('forms.my') ? 'active fw-semibold' : '' }}">
                         My Forms
                     </a>
                 </li>
@@ -49,12 +49,12 @@
 
             <!-- Profile Menu -->
             <div class="dropdown">
-                <a class="text-dark fw-medium dropdown-toggle text-decoration-none" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a href="#" class="dropdown-toggle text-dark fw-medium text-decoration-none" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     My Profile
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+                    <li><a href="#" class="dropdown-item">Settings</a></li>
+                    <li><a href="{{ route('logout') }}" class="dropdown-item">Logout</a></li>
                 </ul>
             </div>
 
@@ -66,7 +66,7 @@
         @yield('content')
     </main>
 
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

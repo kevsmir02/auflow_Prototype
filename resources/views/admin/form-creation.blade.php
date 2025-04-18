@@ -6,35 +6,46 @@
 <div class="container-fluid mt-4">
     <div class="row gx-3">
 
-        <!-- Left Sidebar -->
+        {{-- Left Sidebar --}}
         <div class="col-md-3">
             <div class="bg-white rounded shadow-sm p-3 small h-100">
                 <h6 class="fw-bold text-uppercase mb-3">Layout</h6>
                 <ul class="list-unstyled mb-4">
-                    <li class="mb-2"><i class="bi bi-layout-text-sidebar-reverse me-2"></i> Section</li>
-                    <li class="mb-2"><i class="bi bi-file-earmark-lock2 me-2"></i> Read-Only Text</li>
+                    @foreach ([
+                        ['icon' => 'bi-layout-text-sidebar-reverse', 'label' => 'Section'],
+                        ['icon' => 'bi-file-earmark-lock2', 'label' => 'Read-Only Text'],
+                    ] as $layout)
+                        <li class="mb-2">
+                            <i class="bi {{ $layout['icon'] }} me-2"></i>{{ $layout['label'] }}
+                        </li>
+                    @endforeach
                 </ul>
 
                 <h6 class="fw-bold text-uppercase mb-3">Basic Fields</h6>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><i class="bi bi-fonts me-2"></i> Short Text</li>
-                    <li class="mb-2"><i class="bi bi-textarea-resize me-2"></i> Long Text</li>
-                    <li class="mb-2"><i class="bi bi-check-square me-2"></i> Checkbox</li>
-                    <li class="mb-2"><i class="bi bi-record-circle me-2"></i> Multiple Choice</li>
-                    <li class="mb-2"><i class="bi bi-caret-down-square me-2"></i> Dropdown</li>
-                    <li class="mb-2"><i class="bi bi-calendar-date me-2"></i> Date</li>
-                    <li class="mb-2"><i class="bi bi-123 me-2"></i> Number</li>
-                    <li class="mb-2"><i class="bi bi-envelope me-2"></i> Email</li>
-                    <li class="mb-2"><i class="bi bi-link-45deg me-2"></i> Link</li>
-                    <li class="mb-2"><i class="bi bi-image me-2"></i> Image Upload</li>
+                    @foreach ([
+                        ['icon' => 'bi-fonts', 'label' => 'Short Text'],
+                        ['icon' => 'bi-textarea-resize', 'label' => 'Long Text'],
+                        ['icon' => 'bi-check-square', 'label' => 'Checkbox'],
+                        ['icon' => 'bi-record-circle', 'label' => 'Multiple Choice'],
+                        ['icon' => 'bi-caret-down-square', 'label' => 'Dropdown'],
+                        ['icon' => 'bi-calendar-date', 'label' => 'Date'],
+                        ['icon' => 'bi-123', 'label' => 'Number'],
+                        ['icon' => 'bi-envelope', 'label' => 'Email'],
+                        ['icon' => 'bi-link-45deg', 'label' => 'Link'],
+                        ['icon' => 'bi-image', 'label' => 'Image Upload'],
+                    ] as $field)
+                        <li class="mb-2">
+                            <i class="bi {{ $field['icon'] }} me-2"></i>{{ $field['label'] }}
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>
 
-        <!-- Center Canvas -->
+        {{-- Center Canvas --}}
         <div class="col-md-6">
             <div class="bg-white rounded shadow-sm p-3 h-100">
-                <!-- Header with Toggle -->
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <h6 class="fw-bold mb-0">Form Design</h6>
                     <div class="form-check form-switch small">
@@ -44,7 +55,6 @@
                 </div>
                 <hr class="my-2">
 
-                <!-- Preview Block -->
                 <div class="p-3 bg-light rounded small">
                     <label class="form-label mb-1">Enter your name</label>
                     <input type="text" class="form-control form-control-sm" disabled placeholder="Text Field">
@@ -52,11 +62,11 @@
             </div>
         </div>
 
-        <!-- Right Sidebar -->
+        {{-- Right Sidebar --}}
         <div class="col-md-3">
             <div class="bg-white rounded shadow-sm p-3 small h-100">
 
-                <!-- Tabs -->
+                {{-- Tabs --}}
                 <div class="mb-3">
                     <div class="btn-group w-100" role="group">
                         <button type="button" class="btn btn-outline-secondary btn-sm">Responses</button>
@@ -71,8 +81,8 @@
 
                 <hr class="my-2">
 
-                <!-- Secondary Actions -->
-                <div class="d-flex flex-column gap-2">
+                {{-- Actions --}}
+                <div class="d-grid gap-2">
                     <button class="btn btn-outline-secondary btn-sm w-100">Share Form</button>
                     <button class="btn btn-outline-secondary btn-sm w-100">Form Settings</button>
                 </div>
@@ -82,7 +92,7 @@
     </div>
 </div>
 
-<!-- Toggle to Preview -->
+{{-- JS: Toggle to Preview --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const toggle = document.getElementById('previewToggle');

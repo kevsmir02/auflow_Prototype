@@ -5,13 +5,23 @@
 @section('content')
 @php
     $role = session('role', 'user');
+    $isAdmin = $role === 'admin';
+
+    $formData = [
+        'Form Title' => 'Request for use of SCC',
+        'Response #' => '#0098',
+        'Submitted By' => 'Kevin Miranda',
+        'Workflow Step' => 'Approve Student',
+        'Created On' => 'Mon, Mar 14, 2025',
+        'Action Requested' => 'Approval',
+    ];
 @endphp
 
 <div class="container mt-4">
     <div class="d-flex gap-4 flex-wrap">
 
-        {{-- Sidebar (admin only) --}}
-        @if ($role === 'admin')
+        {{-- Sidebar: View Controls (Admin Only) --}}
+        @if ($isAdmin)
         <div class="bg-white shadow-sm rounded p-3" style="min-width: 180px;">
             <div class="mb-4">
                 <small class="fw-semibold text-muted d-block mb-2">View Mode</small>
@@ -33,41 +43,23 @@
         </div>
         @endif
 
-        {{-- Main Form Detail Table --}}
+        {{-- Main Form Details --}}
         <div class="bg-white shadow-sm rounded p-4 flex-fill">
             <h5 class="fw-bold mb-4">Form Details</h5>
             <table class="table table-sm mb-0 border rounded overflow-hidden">
                 <tbody class="small">
-                    <tr class="border-bottom">
-                        <th class="text-muted w-25">Form Title</th>
-                        <td class="fw-semibold">Request for use of SCC</td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <th class="text-muted">Response #</th>
-                        <td>#0098</td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <th class="text-muted">Submitted By</th>
-                        <td>Kevin Miranda</td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <th class="text-muted">Workflow Step</th>
-                        <td>Approve Student</td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <th class="text-muted">Created On</th>
-                        <td>Mon, Mar 14, 2025</td>
-                    </tr>
-                    <tr>
-                        <th class="text-muted">Action Requested</th>
-                        <td>Approval</td>
-                    </tr>
+                    @foreach ($formData as $label => $value)
+                        <tr class="{{ !$loop->last ? 'border-bottom' : '' }}">
+                            <th class="text-muted w-25">{{ $label }}</th>
+                            <td class="{{ $loop->first ? 'fw-semibold' : '' }}">{{ $value }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
 
-        {{-- Admin Actions (admin only) --}}
-        @if ($role === 'admin')
+        {{-- Admin Actions Sidebar (Admin Only) --}}
+        @if ($isAdmin)
         <div class="bg-white shadow-sm rounded p-3" style="min-width: 160px;">
             <small class="fw-semibold text-muted d-block mb-3">Actions</small>
 

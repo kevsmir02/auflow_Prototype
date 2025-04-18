@@ -6,99 +6,71 @@
 <div class="container-fluid mt-4">
     <div class="d-flex justify-content-center align-items-start gap-4 flex-wrap">
 
-        <!-- Form Preview Container -->
+        {{-- Preview Panel --}}
         <div class="bg-white shadow-sm rounded p-4" style="width: 750px; font-size: 0.9rem;">
             
-            <!-- Logo -->
+            {{-- Logo --}}
             <div class="text-center mb-4">
                 <img src="{{ asset('images/auflog.png') }}" alt="AUFlow Logo" style="height: 60px;">
             </div>
 
-            <!-- Form Content -->
+            {{-- Form --}}
             <form>
-                <!-- Top Single Field -->
-                <div class="mb-3 bg-light p-2 px-3 rounded">
-                    <label class="form-label fw-semibold small mb-1">Enter your name <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm" disabled>
-                </div>
+                @php
+                    $fields = [
+                        ['label' => 'Enter your name', 'type' => 'text', 'col' => 12, 'bg' => true],
+                        ['label' => 'ID No.', 'type' => 'text', 'col' => 6],
+                        ['label' => 'Email', 'type' => 'email', 'col' => 6],
+                        ['label' => 'Program / Department', 'type' => 'text', 'col' => 12, 'bg' => true],
+                        ['label' => 'Year / Level', 'type' => 'text', 'col' => 6],
+                        ['label' => 'Section', 'type' => 'text', 'col' => 6],
+                        ['label' => 'Purpose of Request', 'type' => 'text', 'col' => 12],
+                        ['label' => 'Type of Document Needed', 'type' => 'select', 'col' => 6, 'placeholder' => 'Select an option'],
+                        ['label' => 'Number of Copies', 'type' => 'number', 'col' => 6],
+                        ['label' => 'Preferred Receiving Method', 'type' => 'select', 'col' => 6, 'placeholder' => 'Select a method'],
+                        ['label' => 'Request Date of Release', 'type' => 'date', 'col' => 6],
+                        ['label' => "Approver's Name", 'type' => 'text', 'col' => 6],
+                        ['label' => "Approver's Email", 'type' => 'email', 'col' => 6],
+                    ];
+                @endphp
 
-                <!-- Two Col Row -->
-                <div class="row g-2 mb-3">
-                    <div class="col-md-6">
-                        <label class="form-label small">ID No. <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm" disabled>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label small">Email <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control form-control-sm" disabled>
-                    </div>
-                </div>
+                @foreach ($fields as $index => $field)
+                    @if ($field['col'] === 12)
+                        {{-- Full-width row --}}
+                        <div class="mb-3 {{ $field['bg'] ?? false ? 'bg-light p-2 px-3 rounded' : '' }}">
+                            <label class="form-label {{ $field['bg'] ?? false ? 'fw-semibold' : '' }} small mb-1">
+                                {{ $field['label'] }} <span class="text-danger">*</span>
+                            </label>
+                            @if ($field['type'] === 'select')
+                                <select class="form-select form-select-sm" disabled>
+                                    <option selected>{{ $field['placeholder'] ?? 'Select' }}</option>
+                                </select>
+                            @else
+                                <input type="{{ $field['type'] }}" class="form-control form-control-sm" disabled>
+                            @endif
+                        </div>
+                    @else
+                        {{-- Start a row every 2 fields --}}
+                        @if ($loop->index % 2 === 0)<div class="row g-2 mb-3">@endif
 
-                <!-- Program -->
-                <div class="mb-3 bg-light p-2 px-3 rounded">
-                    <label class="form-label fw-semibold small mb-1">Program / Department <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm" disabled>
-                </div>
+                        <div class="col-md-{{ $field['col'] }}">
+                            <label class="form-label small">
+                                {{ $field['label'] }} <span class="text-danger">*</span>
+                            </label>
+                            @if ($field['type'] === 'select')
+                                <select class="form-select form-select-sm" disabled>
+                                    <option selected>{{ $field['placeholder'] ?? 'Select' }}</option>
+                                </select>
+                            @else
+                                <input type="{{ $field['type'] }}" class="form-control form-control-sm" disabled>
+                            @endif
+                        </div>
 
-                <!-- Year + Section -->
-                <div class="row g-2 mb-3">
-                    <div class="col-md-6">
-                        <label class="form-label small">Year / Level <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm" disabled>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label small">Section <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm" disabled>
-                    </div>
-                </div>
+                        @if ($loop->index % 2 === 1 || $loop->last)</div>@endif
+                    @endif
+                @endforeach
 
-                <!-- Purpose -->
-                <div class="mb-3">
-                    <label class="form-label small">Purpose of Request <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm" disabled>
-                </div>
-
-                <!-- Document Type + Copies -->
-                <div class="row g-2 mb-3">
-                    <div class="col-md-6">
-                        <label class="form-label small">Type of Document Needed <span class="text-danger">*</span></label>
-                        <select class="form-select form-select-sm" disabled>
-                            <option selected>Select an option</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label small">Number of Copies <span class="text-danger">*</span></label>
-                        <input type="number" class="form-control form-control-sm" disabled>
-                    </div>
-                </div>
-
-                <!-- Method + Date -->
-                <div class="row g-2 mb-3">
-                    <div class="col-md-6">
-                        <label class="form-label small">Preferred Receiving Method <span class="text-danger">*</span></label>
-                        <select class="form-select form-select-sm" disabled>
-                            <option selected>Select a method</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label small">Request Date of Release <span class="text-danger">*</span></label>
-                        <input type="date" class="form-control form-control-sm" disabled>
-                    </div>
-                </div>
-
-                <!-- Approver Info -->
-                <div class="row g-2 mb-4">
-                    <div class="col-md-6">
-                        <label class="form-label small">Approver's Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm" disabled>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label small">Approver's Email <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control form-control-sm" disabled>
-                    </div>
-                </div>
-
-                <!-- Image Upload -->
+                {{-- Image Upload --}}
                 <div class="text-center">
                     <i class="bi bi-image" style="font-size: 1.4rem;"></i>
                     <div class="small text-muted mt-1">Image Upload</div>
@@ -106,7 +78,7 @@
             </form>
         </div>
 
-        <!-- Action Sidebar -->
+        {{-- Sidebar Actions --}}
         <div class="bg-white shadow-sm rounded p-3" style="width: 220px; margin-top: 10px;">
             <h6 class="fw-semibold mb-3">Actions</h6>
             <a href="{{ route('admin.formbuilder') }}" class="btn btn-outline-secondary btn-sm w-100 mb-2">Edit</a>

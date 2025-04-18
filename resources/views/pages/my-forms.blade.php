@@ -5,7 +5,7 @@
 @section('content')
 <div class="container mt-4">
 
-    <!-- Tab Switch -->
+    <!-- Header + Tabs -->
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h4 class="fw-bold mb-0">My Forms</h4>
         <div class="btn-group">
@@ -14,7 +14,20 @@
         </div>
     </div>
 
-    <!-- Submitted Forms -->
+    @php
+        $submittedForms = [
+            ['title' => 'Request for Vehicle Use', 'date' => 'Mar 11, 2025', 'elapsed' => '2 days', 'status' => 'In Progress', 'badge' => 'warning text-dark'],
+            ['title' => 'Facilities Reservation', 'date' => 'Mar 08, 2025', 'elapsed' => '5 days', 'status' => 'Complete', 'badge' => 'success'],
+            ['title' => 'Equipment Checkout', 'date' => 'Mar 06, 2025', 'elapsed' => '7 days', 'status' => 'Complete', 'badge' => 'success'],
+        ];
+
+        $draftForms = [
+            ['title' => 'Training Request Form', 'date' => 'Mar 12, 2025', 'elapsed' => '1 day'],
+            ['title' => 'Leave of Absence', 'date' => 'Mar 09, 2025', 'elapsed' => '4 days'],
+        ];
+    @endphp
+
+    <!-- Submitted Forms Table -->
     <div id="submitted-table" class="bg-white rounded shadow-sm p-4" style="min-height: 400px;">
         <div class="table-responsive">
             <table class="table table-borderless align-middle mb-0">
@@ -28,33 +41,25 @@
                     </tr>
                 </thead>
                 <tbody class="small">
-                    <tr class="border-bottom">
-                        <td>Request for Vehicle Use</td>
-                        <td>Mar 11, 2025</td>
-                        <td>2 days</td>
-                        <td><span class="badge bg-warning text-dark">In Progress</span></td>
-                        <td class="text-center"><i class="bi bi-three-dots-vertical" role="button" title="Options"></i></td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <td>Facilities Reservation</td>
-                        <td>Mar 08, 2025</td>
-                        <td>5 days</td>
-                        <td><span class="badge bg-success">Complete</span></td>
-                        <td class="text-center"><i class="bi bi-three-dots-vertical" role="button"></i></td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <td>Equipment Checkout</td>
-                        <td>Mar 06, 2025</td>
-                        <td>7 days</td>
-                        <td><span class="badge bg-success">Complete</span></td>
-                        <td class="text-center"><i class="bi bi-three-dots-vertical" role="button"></i></td>
-                    </tr>
+                    @foreach ($submittedForms as $form)
+                        <tr class="border-bottom">
+                            <td>{{ $form['title'] }}</td>
+                            <td>{{ $form['date'] }}</td>
+                            <td>{{ $form['elapsed'] }}</td>
+                            <td>
+                                <span class="badge bg-{{ $form['badge'] }}">{{ $form['status'] }}</span>
+                            </td>
+                            <td class="text-center">
+                                <i class="bi bi-three-dots-vertical" role="button" title="Options"></i>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- Draft Forms -->
+    <!-- Draft Forms Table -->
     <div id="drafts-table" class="bg-white rounded shadow-sm p-4 d-none" style="min-height: 400px;">
         <div class="table-responsive">
             <table class="table table-borderless align-middle mb-0">
@@ -67,29 +72,23 @@
                     </tr>
                 </thead>
                 <tbody class="small">
-                    <tr class="border-bottom">
-                        <td>Training Request Form</td>
-                        <td>Mar 12, 2025</td>
-                        <td>1 day</td>
-                        <td class="text-center">
-                            <i class="bi bi-trash text-danger" role="button" title="Delete"></i>
-                        </td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <td>Leave of Absence</td>
-                        <td>Mar 09, 2025</td>
-                        <td>4 days</td>
-                        <td class="text-center">
-                            <i class="bi bi-trash text-danger" role="button" title="Delete"></i>
-                        </td>
-                    </tr>
+                    @foreach ($draftForms as $draft)
+                        <tr class="border-bottom">
+                            <td>{{ $draft['title'] }}</td>
+                            <td>{{ $draft['date'] }}</td>
+                            <td>{{ $draft['elapsed'] }}</td>
+                            <td class="text-center">
+                                <i class="bi bi-trash text-danger" role="button" title="Delete"></i>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 
-<!-- Tab Switching Script -->
+<!-- Tab Switching -->
 <script>
     const submittedBtn = document.getElementById('tab-submitted');
     const draftsBtn = document.getElementById('tab-drafts');
