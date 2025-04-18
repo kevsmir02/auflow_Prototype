@@ -5,7 +5,7 @@
 @section('content')
 <div class="container mt-4">
 
-    <!-- Header Section -->
+    <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h4 class="fw-bold mb-0">My Action List</h4>
         <input type="text" class="form-control form-control-sm w-25" placeholder="Search by name, form..." aria-label="Search">
@@ -29,7 +29,7 @@
                     @for ($i = 0; $i < 4; $i++)
                         <tr class="align-middle border-bottom">
                             <td>
-                                 <a href="{{ route('admin.form.detail.legacy', ['id' => $i]) }}" class="text-decoration-none text-dark">
+                                <a href="{{ route('form.detail', ['id' => $i]) }}" class="text-decoration-none text-dark">
                                     Request for use of SCC
                                 </a>
                             </td>
@@ -48,5 +48,6 @@
             </table>
         </div>
     </div>
+
 </div>
 @endsection

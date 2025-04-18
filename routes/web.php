@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', fn() => redirect()->route('login'));
 
-
 /*
 |--------------------------------------------------------------------------
 | Authentication
@@ -33,40 +32,22 @@ Route::get('/logout', function () {
     return redirect()->route('login');
 })->name('logout');
 
-
 /*
 |--------------------------------------------------------------------------
-| User Routes
-|--------------------------------------------------------------------------
-*/
-Route::prefix('user')->name('user.')->group(function () {
-    Route::view('/dashboard', 'user.dashboard')->name('dashboard');
-    Route::view('/form/{id}', 'user.form-detail')->name('form.detail.legacy');
-});
-
-
-/*
-|--------------------------------------------------------------------------
-| Admin Routes
+| Dashboards (Shared via Session)
 |--------------------------------------------------------------------------
 */
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::view('/dashboard', 'admin.dashboard')->name('dashboard');
-    Route::view('/form/{id}', 'admin.form-detail')->name('form.detail.legacy');
-    Route::view('/form-builder', 'admin.form-creation')->name('formbuilder');
-
-    Route::post('/form/{id}/approve', function ($id) {
-        session()->put("form_{$id}_status", 'approved');
-        return redirect()->route('admin.form.approved', $id);
-    })->name('form.approve');
-
-    Route::view('/form/{id}/approved', 'admin.form-approved')->name('form.approved');
+    Route::view('/dashboard', 'pages.dashboard')->name('dashboard');
 });
 
+Route::prefix('user')->name('user.')->group(function () {
+    Route::view('/dashboard', 'pages.dashboard')->name('dashboard');
+});
 
 /*
 |--------------------------------------------------------------------------
-| Shared Form Viewer
+| Form Detail Viewer
 |--------------------------------------------------------------------------
 */
 Route::get('/form/{id}', function ($id) {
@@ -76,10 +57,23 @@ Route::get('/form/{id}', function ($id) {
         return redirect()->route('admin.form.approved', $id);
     }
 
-    $view = $role === 'admin' ? 'admin.form-detail' : 'user.form-detail';
-    return view($view, ['id' => $id]);
+    return view('pages.form-detail', ['id' => $id]);
 })->name('form.detail');
 
+/*
+|--------------------------------------------------------------------------
+| Admin-Specific Form Management
+|--------------------------------------------------------------------------
+*/
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::view('/form-builder', 'admin.form-creation')->name('formbuilder');
+    Route::view('/form/{id}/approved', 'admin.form-approved')->name('form.approved');
+
+    Route::post('/form/{id}/approve', function ($id) {
+        session()->put("form_{$id}_status", 'approved');
+        return redirect()->route('admin.form.approved', $id);
+    })->name('form.approve');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -91,4 +85,3 @@ Route::view('/form-preview', 'admin.form-preview')->name('form.preview');
 Route::view('/admin/workflow', 'admin.workflow')->name('admin.workflow');
 Route::view('/form-publish', 'admin.publish')->name('form.publish');
 Route::view('/action-list', 'pages.action-list')->name('action.list');
-
