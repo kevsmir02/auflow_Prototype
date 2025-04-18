@@ -24,9 +24,13 @@
             </a>
 
             <!-- Navigation -->
+
+            @php
+                $homeRoute = session('role') === 'admin' ? route('admin.dashboard') : route('user.dashboard');
+            @endphp
             <ul class="navbar-nav gap-3 flex-row mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('user.dashboard') ? 'active fw-semibold' : '' }}" href="{{ route('user.dashboard') }}">
+                    <a class="nav-link {{ request()->routeIs('*.dashboard') ? 'active' : '' }}" href="{{ $homeRoute }}">
                         Home
                     </a>
                 </li>
