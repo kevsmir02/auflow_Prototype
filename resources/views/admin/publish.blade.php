@@ -97,8 +97,9 @@
             <!-- Buttons -->
             <div class="text-end">
                 <button class="btn btn-outline-secondary">Export</button>
-                <button class="btn btn-primary">Create</button>
+                <a href="{{ route('admin.form.approved', ['id' => 0]) }}" class="btn btn-primary">Create</a>
             </div>
+
         </div>
     </div>
 </div>

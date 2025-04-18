@@ -47,16 +47,10 @@ Route::prefix('user')->name('user.')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| Form Detail Viewer
+| Form Detail Viewer (No Redirect on Approved)
 |--------------------------------------------------------------------------
 */
 Route::get('/form/{id}', function ($id) {
-    $role = session('role', 'user');
-
-    if ($role === 'admin' && session("form_{$id}_status") === 'approved') {
-        return redirect()->route('admin.form.approved', $id);
-    }
-
     return view('pages.form-detail', ['id' => $id]);
 })->name('form.detail');
 
