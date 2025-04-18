@@ -1,4 +1,6 @@
-/* GENERAL LAYOUT */
+/* ---------------------------------------
+   GENERAL LAYOUT
+---------------------------------------- */
 body {
     background-color: #f8f9fa;
 }
@@ -7,14 +9,30 @@ main {
     min-height: 100vh;
 }
 
-/* NAVIGATION */
+
+/* ---------------------------------------
+   NAVBAR STYLING
+---------------------------------------- */
 .navbar .nav-link {
     font-size: 0.95rem;
+    font-weight: 500;
     color: #333;
+    position: relative;
 }
 
+.navbar .nav-link:hover,
 .navbar .nav-link.active {
     color: #0d6efd; /* Bootstrap primary */
+}
+
+.navbar .nav-link.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 2px;
+    width: 100%;
+    background-color: #0d6efd;
 }
 
 .navbar-brand {
@@ -22,17 +40,21 @@ main {
     font-weight: 600;
 }
 
-/* TOP METRIC CARDS */
+
+/* ---------------------------------------
+   METRIC CARD
+---------------------------------------- */
 .metric-card {
     background-color: #0056b3;
     border-radius: 12px;
     min-height: 140px;
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
     flex-direction: column;
+    justify-content: center;
     padding: 1.25rem;
     color: white;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    will-change: transform;
 }
 
 .metric-card .card-title {
@@ -45,33 +67,43 @@ main {
     margin-bottom: 0.25rem;
 }
 
-/* RESPONSIVE TILE WIDTH FOR 8 TILES PER ROW */
+
+/* ---------------------------------------
+   RESPONSIVE GRID (8 Tiles Per Row)
+---------------------------------------- */
 @media (min-width: 768px) {
     .col-md-1-5 {
         flex: 0 0 auto;
-        width: 12.5%; /* 100 / 8 = 12.5% for 8 tiles per row */
+        width: 12.5%;
     }
 }
 
-/* FORM TILE CARD STYLES */
+
+/* ---------------------------------------
+   TILE CARD STYLING
+---------------------------------------- */
 .tile-card {
     height: 110px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: white;
     text-align: center;
     padding: 0.75rem;
     border-radius: 8px;
     font-size: 0.85rem;
+    color: white;
     width: 100%;
-    transition: all 0.2s ease;
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
 }
 
 .tile-card:hover {
-    transform: scale(1.03);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .form-icon {
@@ -84,52 +116,14 @@ main {
     font-size: 0.8rem;
 }
 
-.tile-card {
-    height: 110px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    text-align: center;
-    padding: 0.75rem;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    width: 100%;
 
-    /* Hover effect */
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.tile-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Navbar active link underline style */
-.navbar .nav-link {
-    color: #333;
-    font-weight: 500;
-    position: relative;
-}
-
-.navbar .nav-link.active::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    height: 2px;
-    width: 100%;
-    background-color: #0d6efd; /* Bootstrap primary */
-}
-
-.navbar .nav-link:hover {
-    color: #0d6efd;
-}
-
+/* ---------------------------------------
+   WORKFLOW STYLES
+---------------------------------------- */
 .border-purple {
     border: 1px solid #6f42c1 !important;
 }
+
 .text-purple {
     color: #6f42c1 !important;
 }
@@ -140,22 +134,16 @@ main {
     z-index: 1;
 }
 
-.workflow-line {
-    width: 30px;
-    height: 2px;
-    background-color: #ccc;
-    margin-right: 1rem;
-    margin-left: -4px;
-    align-self: center;
-}
-
+.workflow-line,
 .step-line {
     height: 2px;
     width: 30px;
     background-color: #ccc;
-    margin-right: 16px;
-    margin-left: -8px;
     align-self: center;
+    margin-right: 1rem;
+    margin-left: -4px;
 }
 
-
+.step-line {
+    margin-left: -8px;
+}

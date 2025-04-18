@@ -35,9 +35,10 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('user.actionlist') ? 'active fw-semibold' : '' }}" href="{{ route('user.actionlist') }}">
-                        Action List
-                    </a>
+                <a class="nav-link {{ request()->routeIs('action.list') ? 'active fw-semibold' : '' }}" href="{{ route('action.list') }}">
+                    Action List
+                </a>
+
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('forms.my') ? 'active fw-semibold' : '' }}" href="{{ route('forms.my') }}">

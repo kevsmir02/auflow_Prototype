@@ -41,7 +41,6 @@ Route::get('/logout', function () {
 */
 Route::prefix('user')->name('user.')->group(function () {
     Route::view('/dashboard', 'user.dashboard')->name('dashboard');
-    Route::view('/action-list', 'user.action-list')->name('actionlist');
     Route::view('/form/{id}', 'user.form-detail')->name('form.detail.legacy');
 });
 
@@ -91,3 +90,5 @@ Route::view('/my-forms', 'pages.my-forms')->name('forms.my');
 Route::view('/form-preview', 'admin.form-preview')->name('form.preview');
 Route::view('/admin/workflow', 'admin.workflow')->name('admin.workflow');
 Route::view('/form-publish', 'admin.publish')->name('form.publish');
+Route::view('/action-list', 'pages.action-list')->name('action.list');
+
