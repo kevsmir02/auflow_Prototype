@@ -24,7 +24,6 @@
             </a>
 
             <!-- Navigation -->
-
             @php
                 $homeRoute = session('role') === 'admin' ? route('admin.dashboard') : route('user.dashboard');
             @endphp
@@ -34,12 +33,16 @@
                         Home
                     </a>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('action.list') ? 'active fw-semibold' : '' }}" href="{{ route('action.list') }}">
-                    Action List
-                </a>
+                
+                <!-- Conditionally render Action List for Admin only -->
+                @if(session('role') === 'admin')
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('action.list') ? 'active fw-semibold' : '' }}" href="{{ route('action.list') }}">
+                            Action List
+                        </a>
+                    </li>
+                @endif
 
-                </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('forms.my') ? 'active fw-semibold' : '' }}" href="{{ route('forms.my') }}">
                         My Forms

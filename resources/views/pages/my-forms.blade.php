@@ -29,21 +29,33 @@
                 </thead>
                 <tbody class="small">
                     <tr class="border-bottom">
-                        <td>Request for Vehicle Use</td>
+                        <td>
+                            <a href="{{ route('form.detail', ['id' => 0]) }}" class="text-decoration-none text-dark">
+                                Request for Vehicle Use
+                            </a>
+                        </td>
                         <td>Mar 11, 2025</td>
                         <td>2 days</td>
                         <td><span class="badge bg-warning text-dark">In Progress</span></td>
                         <td class="text-center"><i class="bi bi-three-dots-vertical" role="button" title="Options"></i></td>
                     </tr>
                     <tr class="border-bottom">
-                        <td>Facilities Reservation</td>
+                        <td>
+                            <a href="{{ route('admin.form.approved', ['id' => 1]) }}" class="text-decoration-none text-dark">
+                                Facilities Reservation
+                            </a>
+                        </td>
                         <td>Mar 08, 2025</td>
                         <td>5 days</td>
                         <td><span class="badge bg-success">Complete</span></td>
                         <td class="text-center"><i class="bi bi-three-dots-vertical" role="button"></i></td>
                     </tr>
                     <tr class="border-bottom">
-                        <td>Equipment Checkout</td>
+                        <td>
+                            <a href="{{ route('admin.form.approved', ['id' => 2]) }}" class="text-decoration-none text-dark">
+                                Equipment Checkout
+                            </a>
+                        </td>
                         <td>Mar 06, 2025</td>
                         <td>7 days</td>
                         <td><span class="badge bg-success">Complete</span></td>

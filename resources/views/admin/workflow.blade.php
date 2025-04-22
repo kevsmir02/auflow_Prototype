@@ -25,7 +25,7 @@
             <h6 class="fw-bold mb-3">Add Steps</h6>
             <ul class="list-unstyled">
                 <li class="mb-2"><i class="bi bi-check2-circle text-success me-2"></i> Approval</li>
-                <li class="mb-2"><i class="bi bi-list-task text-primary me-2"></i> Task</li>
+                <li class="mb-2"><i class="bi bi-list-task text-primary me-2"></i> Noted by</li>
                 <li class="mb-2"><i class="bi bi-envelope-check text-info me-2"></i> Acknowledge</li>
                 <li class="mb-2"><i class="bi bi-bell text-warning me-2"></i> Notification</li>
                 <li class="mb-2"><i class="bi bi-diagram-3-fill text-danger me-2"></i> Branch</li>
@@ -58,7 +58,7 @@
                                 <span class="text-muted small">If denied: <span class="text-danger fw-semibold">stop</span></span>'
                         ],
                         [
-                            'label' => 'Task',
+                            'label' => 'Noted by',
                             'icon' => 'list-task',
                             'class' => 'primary',
                             'content' => '<i class="bi bi-person"></i> Don David'
@@ -79,7 +79,7 @@
                             'label' => 'Integration',
                             'icon' => 'lightning-charge',
                             'class' => 'danger',
-                            'content' => 'Student Information System'
+                            'content' => 'Email Integration'
                         ]
                     ];
                 @endphp
